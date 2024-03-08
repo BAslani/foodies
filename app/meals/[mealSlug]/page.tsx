@@ -1,10 +1,15 @@
 import Image from "next/image"
 import styles from "./page.module.css"
 import { getMeal } from "@/lib/meals"
+import { notFound } from "next/navigation"
 
 const MealDetails = ({ params }: { params: { mealSlug: string } }) => {
   const meal = getMeal(params.mealSlug)
   console.log(meal)
+
+  if (!meal) {
+    notFound()
+  }
 
   meal.instructions = meal.instructions.replace(/\n/g, "<br/>")
 
